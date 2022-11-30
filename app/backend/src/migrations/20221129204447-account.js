@@ -9,24 +9,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      fullName: {
-        allowNull: false,
+      name: {
         type: Sequelize.STRING,
-        field: 'full_name',
+        allowNull: false,
       },
       cpf: {
-        allowNull: false,
         type: Sequelize.STRING,
+        allowNull: false,
       },
       balance: {
-        allowNull: false,
         type: Sequelize.DOUBLE,
+        allowNull: false,
       },
     })
     
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface, _Sequelize) => {
     return queryInterface.dropTable('Accounts')
   }
 };
