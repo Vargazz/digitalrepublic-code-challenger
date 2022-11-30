@@ -5,14 +5,16 @@ import { Redirect } from "react-router-dom";
 class Cadastro extends Component {
     state = {
         account: {
+            id:0,
             name: "",
             cpf: "",
             balance: 0,
         },
+        ids:[],
         redirect: false
     };
 
-    handleInputChange = event => {
+    handleInputChange = (event) => {
         const target = event.target;
         const name = target.name;
         const value = target.value;
@@ -22,7 +24,7 @@ class Cadastro extends Component {
         }));
     };
 
-    handleSubmit = event => {
+    handleSubmit = (event) => {
         event.preventDefault();
         const { account: { name, cpf, balance } } = this.state;
 
@@ -41,7 +43,7 @@ class Cadastro extends Component {
         const { redirect } = this.state
 
         if (redirect) {
-            return <Redirect to="/profile" />
+            return <Redirect to="/" />
         } else {
             return (
                 <div>

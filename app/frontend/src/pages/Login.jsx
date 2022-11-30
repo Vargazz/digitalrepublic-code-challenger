@@ -1,16 +1,54 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import api from '../services/services';
 
 class Login extends Component {
     state = {
+        usuarios:[],
+        id:0,
         account: {
-            name: "",
-            cpf: ""
-        },
-        redirect: false,
+            name:"",
+            cpf:""
+        }
     };
 
-    render(){ 
+    componentDidMount() {
+        this.loadUsuarios();
+        
+    }
+
+    loadUsuarios = async () => { 
+        const response = await api.get(`/account`);
+        const usuario = response.data;
+
+        this.setState({ usuarios: usuario });   
+        
+    };
+
+    handleInputChange = (event) => {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+
+        this.setState(prevState => ({
+            account: { ...prevState.account, [name]: value }
+        }));
+    };
+
+    handleSubmite = (event) => {
+        event.preventDefault();
+        const { usuarios, account } = this.state
+        const { history } = this.props
+
+        const usuario = usuarios.find((elem) => elem.cpf === account.cpf && elem.name === account.name);
+        const getID = usuario.id
+        history.push(`/profile/${getID}`)
+    };
+
+    render(){
+        const { id } = this.state;
+        console.log(id);
+        
     return (
         <div>
             <h1>Login</h1>
@@ -23,6 +61,8 @@ class Login extends Component {
                 name="name"
                 placeholder="Digite seu Nome"
                 required
+                value={this.state.account.name}
+                onChange={ this.handleInputChange }
                 />
             </div>
             <div>
@@ -33,10 +73,12 @@ class Login extends Component {
                 name="cpf"
                 placeholder="Digite Seu CPF"
                 required
+                value={this.state.account.cpf}
+                onChange={ this.handleInputChange }
                 />
             </div>
             <div>
-                <button type="submit">Login</button>
+               <button type="button" onClick={ this.handleSubmite }>Login</button>
                 <br />
                 <Link to={`/cadastro`}>Criar Conta</Link>
             </div>
