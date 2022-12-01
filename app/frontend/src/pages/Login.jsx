@@ -22,7 +22,7 @@ class Login extends Component {
         const usuario = response.data;
 
         this.setState({ usuarios: usuario });   
-        
+
     };
 
     handleInputChange = (event) => {
@@ -46,8 +46,6 @@ class Login extends Component {
     };
 
     render(){
-        const { id } = this.state;
-        console.log(id);
         
     return (
         <div>
