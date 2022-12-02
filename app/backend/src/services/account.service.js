@@ -24,11 +24,18 @@ const getAccounts = async () => {
     return await Account.findAll();
 };
 
-
+const upDateId = async (id, balance) => {
+    const [result] = await Account.update(
+      { balance },
+      { where: { id } },
+    );
+    return result;
+  }
 
 
 module.exports = {
     createAccount,
     getAccounts,
     getById,
+    upDateId
 }

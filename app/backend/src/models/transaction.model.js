@@ -1,12 +1,11 @@
 const Transaction = (sequelize, DataTypes) => {
     const Transaction = sequelize.define('Transaction', {
-        id_transmitter: DataTypes.INTEGER,
-        id_badge: DataTypes.INTEGER,
+        transmitter: DataTypes.INTEGER,
+        badge: DataTypes.INTEGER,
         value: DataTypes.DOUBLE,
-        date: DataTypes.DATE,
 },
       {
-        timestamps: false,
+        timestamps: true,
         tableName: 'Transactions',
       });
   

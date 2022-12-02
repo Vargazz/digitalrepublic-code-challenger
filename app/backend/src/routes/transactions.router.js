@@ -1,9 +1,8 @@
 const transactionsRouter = require('express').Router();
-const { getAllTransactions } = require('../controllers/transactions.controller');
+const { getAllTransactions,  cashTranference } = require('../controllers/transactions.controller');
 
 
 transactionsRouter.get('/transaction', getAllTransactions);
-
-
+transactionsRouter.post('/transaction', cashTranference);
 
 module.exports = transactionsRouter;

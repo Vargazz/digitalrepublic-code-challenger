@@ -18,9 +18,23 @@ const getByIds = async (req, res) => {
     return res.status(200).json(message);
 };
 
+const upDate = async (req, res) => {
+    try {
+      const { balance } = req.body;
+      const { id } = req.params;
+      const updatedUser = await accountService.upDateId(id, balance);
+      if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+      return res.status(200).json({ message: 'User update sucessely!' });
+    } catch (e) {
+      console.log(e.message);
+      res.status(500).json({ message: 'error500Message' });
+    }
+  }
 
+  
 module.exports = {
     createAccount,
     getAllAccount,
     getByIds,
+    upDate
 };

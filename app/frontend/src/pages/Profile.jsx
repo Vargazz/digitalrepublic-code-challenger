@@ -9,12 +9,15 @@ class Profile extends Component {
             cpf: "",
             balance: 0,
         },
-        depositValue: 0,
+        valueTransfer: 0,
+        cpfDest:"",
+        accounts:[],
         transactions: [],
     }
 
     async componentDidMount() {
         this.loadTransactions();
+        this.loadAccount()
         const { id } = this.props.match.params;
         const response = await api.get(`/account/${id}`);
         this.setState({ account: response.data });
@@ -28,49 +31,88 @@ class Profile extends Component {
 
     };
 
-    handleInputChange = (event) => {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
+    loadAccount = async () => { 
+        const response = await api.get(`/account`);
+        const allAccounts = response.data;
+        this.setState({ accounts: allAccounts });
 
-        this.setState(prevState => ({
-            account: { ...prevState.account, [name]: value }
-        }));
+        console.log(allAccounts);
+
     };
 
+    handleInputChange = ({ target }) => {
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+
+        const{ name } = target
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleDeposit = async(event) => {
+            event.preventDefault();
+            const { account: { balance },  valueTransfer, accounts, cpfDest } = this.state;
+            const { id } = this.props.match.params;
+            const accountRecipe = accounts.find((elem) => elem.cpf === cpfDest);
+            const idRecipe = accountRecipe.id
+            const maxValue = 2000
+            if(valueTransfer < maxValue){
+                const soma = balance + valueTransfer
+                const menos = balance - valueTransfer
+    
+                console.log(accountRecipe.id);
+                console.log(menos);
+                await api.put(`/account/${idRecipe}`, { balance: soma });
+                await api.put(`/account/${id}`, { balance: menos });
+    
+                await api.post(`/transaction`, { transmitter: id, badge:idRecipe , value: valueTransfer });
+                window.location.reload()
+            } else{
+                global.alert('Transferencia minima 2000');
+            };
+    }
+
     render() {
-        const { account, transactions } = this.state
-        const transactionById = transactions.filter((elem) => elem.id_transmitter === account.id || elem.id_badge === account.id)
+        const { account, transactions, valueTransfer, cpfDest, accounts } = this.state
+        const transactionById = transactions.filter((elem) => elem.transmitter === account.id || elem.badge === account.id)
+        const nameTransfere = accounts.filter((elem) => elem.id === transactionById.transmitter)
             return (
                 <div>
                     <p>{ account.name }</p>
                     <p>{ account.balance }</p>
-                {transactionById.map(elem => (
-                    <article key={elem.id}>
-                        <p>{elem.id_transmitter}</p>
-                        <p>{elem.id_badge}</p>
-                        <p>{elem.value}</p>
-                        <p>{elem.date}</p>
-                    </article>
-                ))}
                 <form>
                     <div>
-                        <input 
-                        type="number"
-                        placeholder="Digite o Valor do Deposito" 
-                        value={ this.state.depositValue }
-                        // onChange={ this.handleInputChange }
-                        />
-                        <button type="button" onClick={ this.handleDeposit }>Depositar</button>
-                    </div>
-                    <div>
+                    <label htmlFor="cpfDest">CPF</label>
                         <input type="text" 
+                        id="cpfDest" 
+                        name="cpfDest"
                         placeholder="Digite o CPF da pessoa que ira receber"
+                        onChange={ this.handleInputChange }
+                        value={ cpfDest }
                         />
-                        <input type="text" placeholder="Digite o Valor" />
-                        <button type="button">Transferir</button>
+                        <label htmlFor="valueTransfer">Valor:</label>
+                        <input
+                        id="valueTransfer" 
+                        name="valueTransfer"
+                        type="number" 
+                        placeholder="Digite o Valor"
+                        onChange={ this.handleInputChange }
+                        value={ valueTransfer }
+                        />
+                        <button type="button" onClick={this.handleDeposit}>Transferir</button>
                     </div>
                 </form>
+                <div>
+                {transactionById.map(elem => (
+                    <article key={elem.id}>
+                        <p>{elem.transmitter}</p>
+                        <p>{elem.badge}</p>
+                        <p>{elem.value}</p>
+                        <p>{elem.createdAt}</p>
+                    </article>
+                ))}
+                </div>
                 </div>
             )
         }

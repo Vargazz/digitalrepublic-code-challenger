@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_transmitter: {
+      transmitter: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      id_badge: {
+      badge: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
@@ -20,12 +20,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DOUBLE
       },
-      date: {
+      createdAt: {
         allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull:false,
         type: Sequelize.DATE
       }
     },
-    { timestamp: false });
+);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Transactions');

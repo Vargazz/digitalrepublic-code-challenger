@@ -6,6 +6,13 @@ const getAllTransactions = async (_req, res) => {
     return res.status(200).json(accounts);
 };
 
+const cashTranference = async (req, res) => {
+    const { transmitter, badge, value } = req.body
+    const newAccount = await transactionsService.cashTranference(transmitter, badge, value);
+    return res.status(201).json(newAccount);
+};
+
 module.exports = {
-    getAllTransactions
-}
+    getAllTransactions,
+    cashTranference
+};

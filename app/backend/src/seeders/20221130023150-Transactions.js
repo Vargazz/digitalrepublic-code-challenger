@@ -4,10 +4,11 @@ module.exports = {
   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Transactions',
     [
       {
-        id_transmitter: 1,
-        id_badge: 2,
+        transmitter: 1,
+        badge: 2,
         value: 100.00,
-        date: Sequelize.literal('CURRENT_TIMESTAMP'),
+        createdAt: Sequelize.literal('CURRENT_TIMESTAMP'),
+        updatedAt: Sequelize.literal('CURRENT_TIMESTAMP')
       },
     ], {}),
 
