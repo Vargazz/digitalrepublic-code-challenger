@@ -14,14 +14,18 @@ class Profile extends Component {
         accounts:[],
         transactions: [],
     }
-
+//Referencia da Trybe {-----------------------------------
     async componentDidMount() {
         this.loadTransactions();
-        this.loadAccount()
+        this.loadAccount();
+        this.getById();
+
+    }
+
+    getById = async () => {
         const { id } = this.props.match.params;
         const response = await api.get(`/account/${id}`);
         this.setState({ account: response.data });
-
     }
 
     loadTransactions = async () => { 
@@ -46,7 +50,7 @@ class Profile extends Component {
             [name]: value
         });
     };
-
+// ----------------------------------------------------------- }
     handleDeposit = async(event) => {
             event.preventDefault();
             const { account: { balance },  valueTransfer, accounts, cpfDest } = this.state;
@@ -69,7 +73,7 @@ class Profile extends Component {
     }
 
     render() {
-        const { account, transactions, valueTransfer, cpfDest, accounts } = this.state
+        const { account, transactions, valueTransfer, cpfDest } = this.state
         const transactionById = transactions.filter((elem) => elem.transmitter === account.id || elem.badge === account.id)
             return (
                 <div>
