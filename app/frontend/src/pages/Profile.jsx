@@ -35,9 +35,6 @@ class Profile extends Component {
         const response = await api.get(`/account`);
         const allAccounts = response.data;
         this.setState({ accounts: allAccounts });
-
-        console.log(allAccounts);
-
     };
 
     handleInputChange = ({ target }) => {
@@ -60,9 +57,7 @@ class Profile extends Component {
             if(valueTransfer < maxValue){
                 const soma = balance + valueTransfer
                 const menos = balance - valueTransfer
-    
-                console.log(accountRecipe.id);
-                console.log(menos);
+
                 await api.put(`/account/${idRecipe}`, { balance: soma });
                 await api.put(`/account/${id}`, { balance: menos });
     
@@ -76,7 +71,6 @@ class Profile extends Component {
     render() {
         const { account, transactions, valueTransfer, cpfDest, accounts } = this.state
         const transactionById = transactions.filter((elem) => elem.transmitter === account.id || elem.badge === account.id)
-        const nameTransfere = accounts.filter((elem) => elem.id === transactionById.transmitter)
             return (
                 <div>
                     <p>{ account.name }</p>
