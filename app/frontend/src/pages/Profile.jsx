@@ -14,7 +14,7 @@ class Profile extends Component {
         accounts:[],
         transactions: [],
     }
-//Referencia da Trybe {-----------------------------------
+//Referencia da Mentoria da  Trybe {-----------------------------------
     async componentDidMount() {
         this.loadTransactions();
         this.loadAccount();
@@ -58,7 +58,7 @@ class Profile extends Component {
             const accountRecipe = accounts.find((elem) => elem.cpf === cpfDest);
             const idRecipe = accountRecipe.id
             const maxValue = 2000
-            if(valueTransfer < maxValue){
+            if(valueTransfer < maxValue || valueTransfer <= balance){
                 const soma = balance + valueTransfer
                 const menos = balance - valueTransfer
 
@@ -68,7 +68,7 @@ class Profile extends Component {
                 await api.post(`/transaction`, { transmitter: id, badge:idRecipe , value: valueTransfer });
                 window.location.reload()
             } else{
-                global.alert('Transferencia minima 2000');
+                global.alert('Transferencia nao realizada por falta de Saldo ou Valor maximo ultrapassado');
             };
     }
 

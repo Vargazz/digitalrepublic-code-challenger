@@ -11,7 +11,7 @@ class Login extends Component {
             cpf:""
         }
     };
-
+// Referencia na Mentoria da Trybe ---------------------------------------------------- {
     componentDidMount() {
         this.loadUsuarios();
         
@@ -44,7 +44,7 @@ class Login extends Component {
         const getID = usuario.id
         history.push(`/profile/${getID}`)
     };
-
+// ----------------------------------------------------------------------------------------------------------}
     render(){
         
     return (

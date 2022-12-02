@@ -13,7 +13,7 @@ class Cadastro extends Component {
         ids:[],
         redirect: false
     };
-
+// Referencia na mentoria da Trybe ---------------------------{
     handleInputChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -38,7 +38,7 @@ class Cadastro extends Component {
             console.log(error.message);
         })
     }
-
+// --------------------------------------------------------------- }
     render() {
         const { redirect } = this.state
 
