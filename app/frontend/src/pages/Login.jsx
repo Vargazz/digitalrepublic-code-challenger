@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import api from '../services/services';
+import '../style/Login.css'
 
 class Login extends Component {
     state = {
@@ -48,13 +49,17 @@ class Login extends Component {
     render(){
         
     return (
-        <div>
+        <div className="div-center">
+            <div className="gradient">
+            <h1 className="nameBank gradient">Digital Bank</h1>
+            </div>
+        <form className="formLogin">
             <h1>Login</h1>
-        <form>
             <div>
                 <label htmlFor="name">Nome</label>
                 <br />
                 <input type="text" 
+                className="inputs"
                 id="name" 
                 name="name"
                 placeholder="Digite seu Nome"
@@ -67,6 +72,7 @@ class Login extends Component {
                 <label htmlFor="cpf">CPF</label>
                 <br />
                 <input type="text"
+                className="inputs"
                 id="cpf"
                 name="cpf"
                 placeholder="Digite Seu CPF"
@@ -76,9 +82,9 @@ class Login extends Component {
                 />
             </div>
             <div>
-               <button type="button" onClick={ this.handleSubmite }>Login</button>
+               <button className="buttonLogin" type="button" onClick={ this.handleSubmite }>Login</button>
                 <br />
-                <Link to={`/cadastro`}>Criar Conta</Link>
+                <Link to={`/cadastro`} className="buttonCreate">Criar Conta</Link>
             </div>
 
         </form>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import api from '../services/services'
+import "../style/Profile.css"
 
 class Profile extends Component {
     state = {
@@ -77,12 +78,13 @@ class Profile extends Component {
         const transactionById = transactions.filter((elem) => elem.transmitter === account.id || elem.badge === account.id)
             return (
                 <div>
-                    <p>{ account.name }</p>
-                    <p>{ account.balance }</p>
-                <form>
+                    <p className="name">{ account.name }</p>
+                    <p className="name">R$:{ account.balance }</p>
+                <form className="form">
                     <div>
                     <label htmlFor="cpfDest">CPF</label>
                         <input type="text" 
+                        className="input"
                         id="cpfDest" 
                         name="cpfDest"
                         placeholder="Digite o CPF da pessoa que ira receber"
@@ -91,6 +93,7 @@ class Profile extends Component {
                         />
                         <label htmlFor="valueTransfer">Valor:</label>
                         <input
+                        className="input"
                         id="valueTransfer" 
                         name="valueTransfer"
                         type="number" 
@@ -98,12 +101,12 @@ class Profile extends Component {
                         onChange={ this.handleInputChange }
                         value={ valueTransfer }
                         />
-                        <button type="button" onClick={this.handleDeposit}>Transferir</button>
+                        <button type="button" onClick={this.handleDeposit} className="input-button">Transferir</button>
                     </div>
                 </form>
                 <div>
                 {transactionById.map(elem => (
-                    <article key={elem.id}>
+                    <article key={elem.id} className="Transactions">
                         <p>{elem.transmitter}</p>
                         <p>{elem.badge}</p>
                         <p>{elem.value}</p>

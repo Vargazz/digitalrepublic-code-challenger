@@ -1,0 +1,73 @@
+body {
+    height: 100%;
+    background-color: rgb(247, 233, 208);
+}
+
+.gradient { background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgb(245, 151, 128), rgb(153, 52, 34));
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color:transparent;
+
+    color: black;
+}
+
+.nameBank {
+    font-size: 100px;
+}
+
+.div-center {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 200px;
+    align-items: center;
+}
+
+.formLogin {
+    background-color: rgb(243, 218, 171);
+    width: 630px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+    border-radius: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 10px 10px 0px 0px;
+}
+
+.buttonLogin {
+    background-color: orange;
+    padding-right: 30px;
+    width: 200px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.buttonCreate {
+    background-color: orange;
+    border: solid 2px black;
+    border-radius: 30px;
+    text-decoration: none;
+    color: black;
+    padding-right: 105px;
+    font-size: 20px;
+}
+
+.buttonCreate:hover {
+    background-color: rgb(167, 111, 7);
+}
+
+.buttonLogin:hover {
+    background-color: rgb(167, 111, 7);
+}
+
+.inputs {
+    width: 200px;
+    height: 25px;
+    border-radius: 30px;
+}
